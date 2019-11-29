@@ -1,0 +1,59 @@
+PRIZM prizm;          // Instantiate an object named prizm
+
+
+
+
+void setup() {
+
+  prizm.PrizmBegin(); // Initiates the PRIZM controller - must be called in the setup of each PRIZM sketch
+  
+
+}
+
+void forvard(int v, int t)
+{
+  if(t == 0)
+  {
+    prizm.setMotorTarget(1,v,t); 
+    prizm.setMotorTarget(1,v,t); 
+    prizm.resetEncoders()
+  }
+  else
+  {
+    prizm.setMotorTarget(1,v,t);
+    prizm.setMotorTarget(1,v,t); 
+    prizm.resetEncoders() 
+    
+  }
+}
+
+void left_rotate(int degees,int v1)
+{
+  prizm.setMotorDegrees(v1,degees,v1,degees);
+  prizm.resetEncoders()
+  
+  
+
+  
+
+  
+
+  prizm.setMotorTarget(1,0,t);
+  prizm.setMotorTarget(1,0,t); 
+}
+
+void right_rotate(int degees)
+{
+  prizm.setMotorDegrees(v1,-degees,v1,-degees);
+  prizm.resetEncoders()
+}
+
+void loop()
+{
+  
+  
+    forvard(100,1440)
+  
+
+
+}
