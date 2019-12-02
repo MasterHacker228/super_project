@@ -1,5 +1,5 @@
 
-#include <PRIZM.h>
+##include <PRIZM.h>
 PRIZM prizm;          // Instantiate an object named prizm
 
 
@@ -71,6 +71,6 @@ void loop()
 {
 
   kovsh_down();
-  forvard(100, 1440);
+  forvard(360, 3450);
   right_rotate(100, 1440);
 }
