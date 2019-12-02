@@ -1,3 +1,5 @@
+
+#include <PRIZM.h>
 PRIZM prizm;          // Instantiate an object named prizm
 
 
@@ -6,54 +8,69 @@ PRIZM prizm;          // Instantiate an object named prizm
 void setup() {
 
   prizm.PrizmBegin(); // Initiates the PRIZM controller - must be called in the setup of each PRIZM sketch
-  
-
 }
-
 void forvard(int v, int t)
 {
-  if(t == 0)
+  if (t == 0)
   {
-    prizm.setMotorTarget(1,v,t); 
-    prizm.setMotorTarget(1,v,t); 
-    prizm.resetEncoders()
+    prizm.setMotorTarget(2, v, t);
+    prizm.setMotorTarget(3, v, t);
+    prizm.resetEncoders();
   }
   else
   {
-    prizm.setMotorTarget(1,v,t);
-    prizm.setMotorTarget(1,v,t); 
-    prizm.resetEncoders() 
-    
+    prizm.setMotorTarget(2, v, t);
+    prizm.setMotorTarget(3, v, t);
+    prizm.resetEncoders() ;
   }
 }
 
-void left_rotate(int degees,int v1)
+void left_rotate(int v1, int degees)
 {
-  prizm.setMotorDegrees(v1,degees,v1,degees);
-  prizm.resetEncoders()
-  
-  
-
-  
-
-  
-
-  prizm.setMotorTarget(1,0,t);
-  prizm.setMotorTarget(1,0,t); 
+  prizm.setMotorDegrees(v1, degees, v1, degees);
+  prizm.resetEncoders();
 }
 
-void right_rotate(int degees)
+void right_rotate(int v1, int degees)
 {
-  prizm.setMotorDegrees(v1,-degees,v1,-degees);
-  prizm.resetEncoders()
+  prizm.setMotorDegrees(v1, -degees, v1, -degees);
+  prizm.resetEncoders();
 }
+void kovsh_down()
+{
+  prizm.setServoPosition(1, 160);//опустить ковш
+  prizm.setServoPosition(2, 160);
+  prizm.setServoPosition(3, 20);
+  delay(100);
+  prizm.setServoPosition(5, 90);//открыт захват
+}
+void kovsh_up()
+{
+  prizm.setServoPosition(5, 0);//захват закрыт
+  delay(100);
+  prizm.setServoPosition(1, 90);//поднять ковш
+  prizm.setServoPosition(2, 90);
+  prizm.setServoPosition(3, 90);
 
+
+
+}
+void catch_trash (int i)
+{
+  covsh_up();
+  forvard(100, 1440 * i);
+  covsh_down();
+  covsh_up();
+  right_rotate(100, 1440);
+  forvard(100,0);
+  covsh_down();
+
+}
+}
 void loop()
 {
-  
-  
-    forvard(100,1440)
-  
 
-
+  kovsh_down();
+  forvard(100, 1440);
+  right_rotate(100, 1440);
 }
