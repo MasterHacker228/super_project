@@ -1,0 +1,24 @@
+void setup() {
+  // put your setup code here, to run once:
+  int marshrut [4] [5]//массив маршрута
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (marsrut [x] [y]==[0]){
+    marsrut[x] [y]=[1]
+    right_rotate()
+    for (int i;i<x-1;i++){
+     
+      forvard()
+    }
+    right_rotate()
+    for (int i;i<y-1;i++){
+      forvard()
+      
+    }
+    
+  }
+  
+
+}
