@@ -3,7 +3,7 @@
 #define LEFT 1
 #define RIGHT 2
 
-#define CM35 1637
+#define CM35 1537
 #define DG45 441
 
 PRIZM prizm;          // Instantiate an object named prizm
@@ -72,7 +72,6 @@ void l()
   prizm.setMotorSpeeds(0, 0);
 }
 
-
 void r()
 {
   prizm.resetEncoders();
@@ -92,18 +91,45 @@ void r()
   prizm.setMotorSpeeds(0, 0);
 }
 
+
+void kd()
+{
+  prizm.setServoPosition(1, 160);//опустить ковш
+  prizm.setServoPosition(2, 160);
+  prizm.setServoPosition(3, 20);
+  delay(100);
+  prizm.setServoPosition(5, 90);//открыт захват
+}
+
+void ku()
+{
+  prizm.setServoPosition(5, 0);//захват закрыт
+  delay(100);
+  prizm.setServoPosition(1, 90);//поднять ковш
+  prizm.setServoPosition(2, 90);
+  prizm.setServoPosition(3, 90);
+}
+
+
+
+
+
 void loop()
 {
-  l();
-  f();
-  r();
-  f();
-  f();
-  f();
-  b();
-  b();
-  b();
-  l();
-  b();
-  r();
+
+//  delay(5000);
+
+
+f();
+kd();
+f();
+ku();
+r();
+r();
+f();
+f();
+
+
+
+
 }
