@@ -6,13 +6,17 @@
 #define CM35 1537
 #define DG45 441
 
-PRIZM prizm;          // Instantiate an object named prizm
+PRIZM prizm;
 
 void setup()
 {
-  prizm.PrizmBegin(); // Initiates the PRIZM controller - must be called in the setup of each PRIZM sketch
+  prizm.PrizmBegin();
   prizm.setMotorInvert(LEFT, 1);
   Serial.begin(9600);
+  prizm.setServoSpeed(1,15);
+  prizm.setServoSpeed(2,15);
+  prizm.setServoPosition(1, 90);
+  prizm.setServoPosition(2, 90);
 }
 
 void b()
@@ -22,13 +26,14 @@ void b()
   int v = 0;
   while (prizm.readEncoderCount(1) < CM35)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(-v, -v);
     if (v < 720) v += 10;
   }
-  //prizm.resetEncoders();
 
   while (prizm.readEncoderCount(1) < CM35 * 2)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(-v, -v);
     if (v > 0) v -= 13;
   }
@@ -42,12 +47,14 @@ void f()
   int v = 0;
   while (-prizm.readEncoderCount(1) < CM35)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(v, v);
     if (v < 720) v += 10;
   }
 
   while (-prizm.readEncoderCount(1) < CM35 * 2)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(v, v);
     if (v > 0) v -= 13;
   }
@@ -61,11 +68,13 @@ void l()
   int v = 0;
   while (prizm.readEncoderCount(1) < DG45)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(-v, v);
     if (v < 720) v += 10;
   }
   while (prizm.readEncoderCount(1) < DG45 * 2)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(-v, v);
     if (v > 0) v -= 13;
   }
@@ -79,56 +88,70 @@ void r()
   int v = 0;
   while (prizm.readEncoderCount(1) > -DG45)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(v, -v);
     if (v < 720) v += 10;
   }
 
   while (prizm.readEncoderCount(1) > -DG45 * 2)
   {
+    Serial.println(v);
     prizm.setMotorSpeeds(v, -v);
     if (v > 0) v -= 13;
   }
   prizm.setMotorSpeeds(0, 0);
 }
 
-
-void kd()
+void kus()
 {
-  prizm.setServoPosition(1, 160);//опустить ковш
-  prizm.setServoPosition(2, 160);
-  prizm.setServoPosition(3, 20);
-  delay(100);
-  prizm.setServoPosition(5, 90);//открыт захват
+  prizm.setServoPosition(1, 135);
+  prizm.setServoPosition(2, 45); 
 }
 
-void ku()
+void bros()
 {
-  prizm.setServoPosition(5, 0);//захват закрыт
-  delay(100);
-  prizm.setServoPosition(1, 90);//поднять ковш
-  prizm.setServoPosition(2, 90);
-  prizm.setServoPosition(3, 90);
+  prizm.setServoPosition(1, 45);
+  prizm.setServoPosition(2, 135);
 }
 
+void zahvat()
+{
+  prizm.resetEncoders();
 
+  bros();
+  int v = 0;
+  while (-prizm.readEncoderCount(1) < 1700)
+  {
+    Serial.println(v);
+    prizm.setMotorSpeeds(v, v);
+    if (v < 720) v += 10;
+  }
 
-
+  kus();
+  while (-prizm.readEncoderCount(1) < 1700 * 2)
+  {
+    Serial.println(v);
+    prizm.setMotorSpeeds(v, v);
+    if (v > 0) v -= 13;
+  }
+  prizm.setMotorSpeeds(0, 0);
+}
 
 void loop()
 {
 
-//  delay(5000);
+//  delay(6000);
 
 
-f();
-kd();
-f();
-ku();
-r();
-r();
-f();
-f();
 
+zahvat();
+
+//f();
+//r();
+//r();
+//f();
+//f();
+  while(1) delay(10);
 
 
 
