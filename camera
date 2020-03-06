@@ -1,0 +1,22 @@
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+
+
+cam = cv.VideoCapture(0)
+#cam = cv.VideoCapture(0)
+_, image_l = cam.read()
+_, image_r = cam.read() 
+'''загрузка изображений c камеры'''
+#image = camera.imread("1122.jpg")
+stereo = cv.StereoBM_create(numDisparities=16, blockSize=15)
+disparity = stereo.compute(image_l,image_r)
+plt.imshow(disparity,'gray')
+plt.show()
+
+cv.imshow("super image", image_l)
+cv.imwrite("11223.png",image_l) # writes image test.bmp to disk
+cv.imshow("super image1", image_r)
+cv.imwrite("112231.png",image_r) # writes image test.bmp to disk
+
+cv.waitKey(200)
